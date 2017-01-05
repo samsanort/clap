@@ -8,6 +8,7 @@ public class ValuedArgumentParsingException extends Exception {
 
     /**
      * C'tor.
+     *
      * @param message Exception message.
      */
     public ValuedArgumentParsingException(String message) {
