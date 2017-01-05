@@ -11,7 +11,8 @@ public class Argument {
 
     /**
      * C'tor.
-     * @param name Name of the argument - as it will be provided in the command line.
+     *
+     * @param name        Name of the argument - as it will be provided in the command line.
      * @param description Description of the argument - what is this argument used for.
      */
     public Argument(String name, String description) {
@@ -19,6 +20,11 @@ public class Argument {
         this.description = description;
     }
 
-    public String getName() {return this.name; }
-    public String getDescription() {return this.description; }
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
 }

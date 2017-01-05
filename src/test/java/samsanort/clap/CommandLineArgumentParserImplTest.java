@@ -118,7 +118,7 @@ public class CommandLineArgumentParserImplTest {
     public void parse_undefinedArgument_throwsIllegalArgumentException() throws Exception {
 
         // given
-        String[] undefinedArg = { "-foo" };
+        String[] undefinedArg = {"-foo"};
 
         // when
         testSubject.parse(undefinedArg);
@@ -128,7 +128,7 @@ public class CommandLineArgumentParserImplTest {
     public void parse_valuedArgumentWithoutValue_throwsIllegalArgumentException() throws Exception {
 
         // given
-        String[] noValueArg = { ARGNAME_VARG_STR };
+        String[] noValueArg = {ARGNAME_VARG_STR};
 
         // when
         testSubject.parse(noValueArg);
@@ -138,7 +138,7 @@ public class CommandLineArgumentParserImplTest {
     public void parse_mandatoryArgumentMissing_throwsIllegalArgumentException() throws Exception {
 
         // given
-        String[] oneArgMissing = { ARGNAME_VARG_STR, "vargStr value" };
+        String[] oneArgMissing = {ARGNAME_VARG_STR, "vargStr value"};
 
         // when
         testSubject.parse(oneArgMissing);
@@ -166,12 +166,12 @@ public class CommandLineArgumentParserImplTest {
         assertThat(parsedArgs.containsKey(ARGNAME_VARG_STR), is(true));
         assertThat(parsedArgs.containsKey(ARGNAME_VARG_INT), is(true));
         assertThat(parsedArgs.containsKey(ARGNAME_VARG_OPT), is(true));
-        assertValuedArgumentValue((ValuedArgument)parsedArgs.get(ARGNAME_VARG_STR), vargStrValue);
-        assertValuedArgumentValue((ValuedArgument)parsedArgs.get(ARGNAME_VARG_INT), vargIntValue);
-        assertValuedArgumentValue((ValuedArgument)parsedArgs.get(ARGNAME_VARG_OPT), vargOptValue);
+        assertValuedArgumentValue((ValuedArgument) parsedArgs.get(ARGNAME_VARG_STR), vargStrValue);
+        assertValuedArgumentValue((ValuedArgument) parsedArgs.get(ARGNAME_VARG_INT), vargIntValue);
+        assertValuedArgumentValue((ValuedArgument) parsedArgs.get(ARGNAME_VARG_OPT), vargOptValue);
     }
 
     private static <T> void assertValuedArgumentValue(ValuedArgument varg, T value) {
-        assertThat( (T) varg.getValue(), is(equalTo( value )) );
+        assertThat((T) varg.getValue(), is(equalTo(value)));
     }
 }

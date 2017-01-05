@@ -10,12 +10,13 @@ public class CommandLineArgumentParserImpl implements CommandLineArgumentParser 
 
     /**
      * C'tor.
+     *
      * @param argumentPrefix Prefix that argument names will have.
      *                       f.i.: "-" , for arguments like "-arg1"
      */
     public CommandLineArgumentParserImpl(String argumentPrefix) {
 
-        if(argumentPrefix == null || argumentPrefix.trim().isEmpty())
+        if (argumentPrefix == null || argumentPrefix.trim().isEmpty())
             throw new IllegalArgumentException("Argument prefix cannot be null, empty nor blank.");
 
         this.argumentPrefix = argumentPrefix;
@@ -42,13 +43,13 @@ public class CommandLineArgumentParserImpl implements CommandLineArgumentParser 
 
     private void validateNameAndDescription(String name, String description) {
 
-        if(name == null || name.isEmpty())
+        if (name == null || name.isEmpty())
             throw new IllegalArgumentException("Argument name cannot be empty.");
 
-        if(description == null || description.isEmpty())
+        if (description == null || description.isEmpty())
             throw new IllegalArgumentException("Argument description cannot be empty.");
 
-        if(!name.startsWith(this.argumentPrefix))
+        if (!name.startsWith(this.argumentPrefix))
             throw new IllegalArgumentException("Argument name must start with prefix " + this.argumentPrefix);
     }
 
@@ -58,19 +59,20 @@ public class CommandLineArgumentParserImpl implements CommandLineArgumentParser 
 
         boolean expectingValue = false;
         String argNameOfExpectedValue = null;
-        for(String arg : args) {
+        for (String arg : args) {
 
-            if(arg.startsWith(argumentPrefix)) {
+            if (arg.startsWith(argumentPrefix)) {
 
                 // this is a flag or a valued arg name,
                 // let's validate and register it
 
-                if(expectingValue) throw new IllegalArgumentException(String.format("Found argument %s when expecting value for argument %s.", arg, argNameOfExpectedValue));
+                if (expectingValue)
+                    throw new IllegalArgumentException(String.format("Found argument %s when expecting value for argument %s.", arg, argNameOfExpectedValue));
 
                 Argument definedArg = definedArguments.get(arg);
-                if(definedArg != null) {
+                if (definedArg != null) {
 
-                    if(definedArg instanceof ValuedArgument) {
+                    if (definedArg instanceof ValuedArgument) {
                         expectingValue = true;
                         argNameOfExpectedValue = arg;
                     }
@@ -86,21 +88,21 @@ public class CommandLineArgumentParserImpl implements CommandLineArgumentParser 
                 // this is a valued arg value,
                 // let's parse its value
 
-                ((ValuedArgument)parsedArguments.get(argNameOfExpectedValue)).setValueFromString(arg);
+                ((ValuedArgument) parsedArguments.get(argNameOfExpectedValue)).setValueFromString(arg);
                 expectingValue = false;
             }
         }
 
-        if(expectingValue) throw new IllegalArgumentException("Missing value for argument " + argNameOfExpectedValue);
+        if (expectingValue) throw new IllegalArgumentException("Missing value for argument " + argNameOfExpectedValue);
 
         return parsedArguments;
     }
 
     private void checkMandatoryArguments(Map<String, Argument> parsedArguments) {
-        for(Argument definedArgument : definedArguments.values()) {
-            if(definedArgument instanceof  ValuedArgument) {
-                if(((ValuedArgument) definedArgument).isMandatory()) {
-                    if(!parsedArguments.containsKey(definedArgument.getName())) {
+        for (Argument definedArgument : definedArguments.values()) {
+            if (definedArgument instanceof ValuedArgument) {
+                if (((ValuedArgument) definedArgument).isMandatory()) {
+                    if (!parsedArguments.containsKey(definedArgument.getName())) {
                         throw new IllegalArgumentException(
                                 String.format(
                                         "Argument %s is mandatory, but wasn't provided.",

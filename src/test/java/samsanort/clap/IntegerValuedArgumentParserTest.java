@@ -34,7 +34,7 @@ public class IntegerValuedArgumentParserTest {
         Integer parsedValue = testSubject.parse(anIntegerRepresentation);
 
         // then
-        assertThat(parsedValue.intValue(), is(equalTo( Integer.parseInt(anIntegerRepresentation) )));
+        assertThat(parsedValue.intValue(), is(equalTo(Integer.parseInt(anIntegerRepresentation))));
     }
 
 }
